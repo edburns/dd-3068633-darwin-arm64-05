@@ -3,6 +3,7 @@ param(
     [ValidateRange(0, [int]::MaxValue)]
     [int]$N,
 
+    [ValidateSet('fibonacci', 'factorial')]
     [string]$Operation = 'fibonacci'
 )
 
@@ -57,9 +58,6 @@ if ($MyInvocation.InvocationName -ne '.') {
         }
         'factorial' {
             Write-Output "Factorial($N) = $(Get-Factorial -N $N)"
-        }
-        default {
-            throw "Unsupported operation: $Operation"
         }
     }
 }
