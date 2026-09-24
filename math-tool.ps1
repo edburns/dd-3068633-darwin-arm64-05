@@ -59,9 +59,5 @@ if ($MyInvocation.InvocationName -ne '.') {
         'factorial' {
             Write-Output "Factorial($N) = $(Get-Factorial -N $N)"
         }
-        default {
-            # Defensive guard if ValidateSet changes without updating dispatch.
-            throw "Unsupported operation: $Operation"
-        }
     }
 }

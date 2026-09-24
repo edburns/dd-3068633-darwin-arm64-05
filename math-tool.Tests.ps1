@@ -100,7 +100,7 @@ Describe 'math-tool CLI' {
         [System.IO.File]::ReadAllText($factorialErrorPath) | Should -BeNullOrEmpty
     }
 
-    It 'rejects unsupported operations' {
+    It 'rejects unsupported operations through parameter validation' {
         $errorPath = Join-Path $TestDrive 'math-tool-unknown-operation.stderr'
         [string[]]$stdout = & pwsh -NoLogo -NoProfile -File (Join-Path $PSScriptRoot 'math-tool.ps1') -Operation unknown -N 3 2> $errorPath
         $exitCode = $LASTEXITCODE
