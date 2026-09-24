@@ -59,5 +59,8 @@ if ($MyInvocation.InvocationName -ne '.') {
         'factorial' {
             Write-Output "Factorial($N) = $(Get-Factorial -N $N)"
         }
+        default {
+            throw "Unsupported operation: $Operation"
+        }
     }
 }
