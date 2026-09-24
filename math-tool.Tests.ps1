@@ -3,7 +3,7 @@ param()
 
 Describe 'Get-Fibonacci' {
     BeforeAll {
-        . (Join-Path $PSScriptRoot 'math-tool.ps1') -N 0
+        . (Join-Path $PSScriptRoot 'math-tool.ps1')
     }
 
     It 'returns <Expected> for N=<N>' -ForEach @(
