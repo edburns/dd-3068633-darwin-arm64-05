@@ -59,5 +59,9 @@ if ($MyInvocation.InvocationName -ne '.') {
         'factorial' {
             Write-Output "Factorial($N) = $(Get-Factorial -N $N)"
         }
+        default {
+            # ValidateSet rejects unsupported CLI values; fail loudly if future values are added without dispatch.
+            throw "Unsupported operation: $Operation"
+        }
     }
 }
