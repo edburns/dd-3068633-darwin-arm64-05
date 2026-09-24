@@ -1,5 +1,6 @@
 [CmdletBinding()]
 param(
+    [Parameter(Mandatory)]
     [ValidateRange(0, [int]::MaxValue)]
     [int]$N
 )
