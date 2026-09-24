@@ -1,21 +1,19 @@
 [CmdletBinding()]
 param()
 
-$scriptPath = Join-Path $PSScriptRoot 'math-tool.ps1'
-
 Describe 'Get-Fibonacci' {
     BeforeAll {
-        . $scriptPath
+        . (Join-Path $PSScriptRoot 'math-tool.ps1')
     }
 
     It 'returns <Expected> for N=<N>' -ForEach @(
-        @{ N = 0; Expected = [long]0 }
-        @{ N = 1; Expected = [long]1 }
-        @{ N = 8; Expected = [long]21 }
+        @{ N = 0; Expected = [bigint]0 }
+        @{ N = 1; Expected = [bigint]1 }
+        @{ N = 8; Expected = [bigint]21 }
     ) {
         $result = Get-Fibonacci -N $N
 
-        $result | Should -BeOfType [long]
+        $result | Should -BeOfType [bigint]
         $result | Should -Be $Expected
     }
 }
@@ -27,7 +25,7 @@ Describe 'math-tool CLI' {
         @{ N = 8; Expected = 'Fibonacci(8) = 21' }
     ) {
         $errorPath = Join-Path $TestDrive "math-tool-$N.stderr"
-        [string[]]$stdout = & pwsh -NoLogo -NoProfile -File $scriptPath -N $N 2> $errorPath
+        [string[]]$stdout = & pwsh -NoLogo -NoProfile -File (Join-Path $PSScriptRoot 'math-tool.ps1') -N $N 2> $errorPath
         $exitCode = $LASTEXITCODE
 
         $exitCode | Should -Be 0
