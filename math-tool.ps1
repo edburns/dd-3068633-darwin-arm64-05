@@ -1,7 +1,10 @@
 [CmdletBinding()]
 param(
     [ValidateRange(0, [int]::MaxValue)]
-    [int]$N
+    [int]$N,
+
+    [ValidateSet('fibonacci', 'factorial')]
+    [string]$Operation = 'fibonacci'
 )
 
 Set-StrictMode -Version Latest
@@ -29,10 +32,32 @@ function Get-Fibonacci {
     return $current
 }
 
+function Get-Factorial {
+    [CmdletBinding()]
+    param(
+        [ValidateRange(0, [int]::MaxValue)]
+        [int]$N
+    )
+
+    [bigint]$result = 1
+    for ($factor = 2; $factor -le $N; $factor++) {
+        $result *= $factor
+    }
+
+    return $result
+}
+
 if ($MyInvocation.InvocationName -ne '.') {
     if (-not $PSBoundParameters.ContainsKey('N')) {
         throw 'The N parameter is required.'
     }
 
-    Write-Output "Fibonacci($N) = $(Get-Fibonacci -N $N)"
+    switch ($Operation) {
+        'fibonacci' {
+            Write-Output "Fibonacci($N) = $(Get-Fibonacci -N $N)"
+        }
+        'factorial' {
+            Write-Output "Factorial($N) = $(Get-Factorial -N $N)"
+        }
+    }
 }
